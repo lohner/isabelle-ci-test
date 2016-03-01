@@ -1,7 +1,14 @@
+language: generic
+
+sudo: false
+
 before_install:
-  - sudo wget http://isabelle.in.tum.de/dist/Isabelle2016_app.tar.gz
-  - sudo tar -C /opt/ -xzf Isabelle2016_app.tar.gz
-  - sudo /opt/Isabelle2016/bin/isabelle build -b -s HOL
+  - wget http://isabelle.in.tum.de/dist/Isabelle2016_app.tar.gz
+  - tar -C .local/ -xzf Isabelle2016_app.tar.gz
+  - .local/Isabelle2016/bin/isabelle build -b -s -v HOL
+
 install: true
-before_script: export PATH=/opt/Isabelle2016/bin:$PATH
+
+before_script: export PATH=`pwd`/.local/Isabelle2016/bin:$PATH
+
 script: isabelle build -d . isabelle-ci-test

@@ -4,6 +4,7 @@ sudo: false
 
 before_install:
   - wget http://isabelle.in.tum.de/dist/Isabelle2016_app.tar.gz
+  - mkdir -p .local
   - tar -C .local/ -xzf Isabelle2016_app.tar.gz
   - .local/Isabelle2016/bin/isabelle build -b -s -v HOL
 

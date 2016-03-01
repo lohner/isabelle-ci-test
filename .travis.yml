@@ -14,7 +14,7 @@ env:
 cache:
   directories:
   - ${INSTALL_DIR}
-  - ($ISABELLE getenv -b ISABELLE_HOME_USER)
+  - $HOME/.isabelle
 
 before_install:
   - mkdir -p ${INSTALL_DIR}

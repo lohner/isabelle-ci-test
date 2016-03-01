@@ -13,8 +13,7 @@ cache:
 
 before_install:
   - mkdir -p .local
-  - test -e $ISABELLE || wget http://isabelle.in.tum.de/dist/Isabelle2016_app.tar.gz
-  - test -e $ISABELLE || tar -C .local/ -xzf Isabelle2016_app.tar.gz
+  - test -e $ISABELLE || wget http://isabelle.in.tum.de/dist/Isabelle2016_app.tar.gz && tar -C $HOME/.local/ -xzf Isabelle2016_app.tar.gz
   - test -e `$ISABELLE getenv -b ISABELLE_HOME`/heaps/`$ISABELLE getenv -b ISABELLE_SYSTEM`_`$ISABELLE getenv -b ISABELLE_PLATFORM`/HOL || $ISABELLE build -b -s -v HOL
 
 install: true

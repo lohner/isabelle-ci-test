@@ -10,6 +10,10 @@ env:
   - ISABELLE_URL: http://isabelle.in.tum.de/dist/${ISABELLE_TARBALL}
   - ISABELLE_DIR: ${INSTALL_DIR}/${ISABELLE_VERSION}
   - ISABELLE: ${ISABELLE_DIR}/bin/isabelle
+  - ISABELLE_USER_SETTINGS: ${HOME}/.isabelle/${ISABELLE_VERSION}/etc/settings
+  - AFP_BRANCH: afp-2016
+  - AFP_REPO: https://bitbucket.org/isa-afp/${AFP_BRANCH}
+  - AFP_DIR: ${INSTALL_DIR}/${AFP_BRANCH}
 
 cache:
   directories:
@@ -20,7 +24,10 @@ before_install:
   - mkdir -p ${INSTALL_DIR}
   - test -e $ISABELLE || { wget ${ISABELLE_URL} && tar -C ${INSTALL_DIR}/ -xzf ${ISABELLE_TARBALL}; }
   - test -e `$ISABELLE getenv -b ISABELLE_HOME`/heaps/`$ISABELLE getenv -b ML_IDENTIFIER`/HOL || $ISABELLE build -b -s -v HOL
+  - test -e ${AFP_DIR} || (cd ${INSTALL_DIR}; hg clone ${AFP_REPO})
+  - test -e ${ISABELLE_USER_SETTINGS} || echo 'init_component "${AFP_DIR}"' > ${ISABELLE_USER_SETTINGS}
+  - (cd ${AFP_DIR}; hg pull -u)
 
 install: true
 
-script: $ISABELLE build -d . isabelle-ci-test
+script: $ISABELLE build -d "$AFP" -d . isabelle-ci-test

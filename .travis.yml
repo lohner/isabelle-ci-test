@@ -30,4 +30,4 @@ before_install:
 
 install: true
 
-script: $ISABELLE build -d "$AFP" -d . isabelle-ci-test
+script: $ISABELLE build -d '$AFP' -d . isabelle-ci-test
